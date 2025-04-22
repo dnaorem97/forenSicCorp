@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News - Digital Forensic Corp</title>
+    <link rel="stylesheet" href="./fontawesome-free-6.5.2-web/css/all.min.css">
+    <!-- <link rel="stylesheet" href="./cleaned.css"> -->
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* ---------- Top Bar ---------- */
+        #topBar {
+            font-size: 1rem;
+            background-color: #313131;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            flex-wrap: wrap;
+        }
+
+        .em-contact-point {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+        }
+
+        .em-contact-point a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .em-contact-point .fa-phone {
+            font-size: 16px;
+            margin-right: 4px;
+            border-radius: 4px;
+            padding: 8px;
+            background-color: #FF464F;
+        }
+
+        #serv-open {
+            font-size: 0.8rem;
+            color: wheat;
+            margin-left: 8px;
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+        }
+
+        input[name="search-location"] {
+            width: 100%;
+            height: 32px;
+            border: none;
+            border-radius: 2px;
+            padding: 0 10px;
+        }
+
+        .fa-search {
+            color: #A9A9A9;
+        }
+
+        .search-by-zip {
+            width: 50%;
+        }
+
+        /* ---------- Navbar ---------- */
+        .navbar-container {
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 900;
+            background-color: #FFFFFF;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-img {
+            width: 180px;
+            height: auto;
+            max-height: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .navbar a,
+        .dropdown button {
+            font-weight: 500;
+            font-size: 1.5rem;
+            color: black;
+            padding: 10px 12px;
+            text-decoration: none;
+            border: none;
+            background: none;
+            cursor: pointer;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        .navbar a:hover,
+        .dropdown button:hover {
+            background-color: red;
+            color: white;
+            border-radius: 3px;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            border-radius: 3px;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content,
+        .dropdown.active .dropdown-content {
+            display: block;
+        }
+
+        /* ---------- Mobile Navbar ---------- */
+        .menu-icon {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        /* ---------- News Page Styles ---------- */
+        .news-page-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1200/400');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .news-page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .news-page-header p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .news-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .featured-news {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #FF464F;
+            color: #333;
+        }
+
+        .featured-article {
+            display: flex;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .featured-article-image {
+            flex: 1;
+            max-width: 50%;
+        }
+
+        .featured-article-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .featured-article-content {
+            flex: 1;
+            padding: 30px;
+        }
+
+        .article-category {
+            display: inline-block;
+            background-color: #FF464F;
+            color: white;
+            font-size: 0.8rem;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        .article-date {
+            display: block;
+            color: #777;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .article-title {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .article-excerpt {
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .read-more-btn {
+            display: inline-block;
+            background-color: #FF464F;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .read-more-btn:hover {
+            background-color: #d93a42;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .news-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .news-card-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .news-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .news-card:hover .news-card-image img {
+            transform: scale(1.05);
+        }
+
+        .news-card-content {
+            padding: 20px;
+        }
+
+        .news-card .article-category {
+            font-size: 0.75rem;
+            padding: 4px 8px;
+        }
+
+        .news-card .article-date {
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+
+        .news-card .article-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .news-card .article-excerpt {
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .news-card .read-more-btn {
+            font-size: 0.9rem;
+            padding: 8px 15px;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .pagination a {
+            color: #333;
+            padding: 8px 16px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            margin: 0 4px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .pagination a.active {
+            background-color: #FF464F;
+            color: white;
+            border-color: #FF464F;
+        }
+
+        .pagination a:hover:not(.active) {
+            background-color: #f1f1f1;
+        }
+
+        /* ---------- Footer Styles ---------- */
+        #footer-section {
+            background-color: #f8f8f8;
+            color: black;
+            padding: 30px 0;
+            font-family: Arial, sans-serif;
+            margin-top: 50px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px;
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 20px;
+        }
+
+        .social-media {
+            text-align: left;
+        }
+
+        .contact-info {
+            text-align: left;
+        }
+
+        .social-media h4,
+        .contact-info h4 {
+            margin-bottom: 15px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .social-icons a {
+            font-size: 20px;
+            margin-right: 15px;
+            color: black;
+            text-decoration: none;
+        }
+
+        .social-icons a:hover {
+            color: #007bff;
+        }
+
+        .contact-info address {
+            font-style: normal;
+            line-height: 1.6;
+        }
+
+        .contact-info p {
+            margin: 8px 0;
+            font-size: 14px;
+        }
+
+        .contact-info i {
+            margin-right: 8px;
+            color: #007bff;
+            width: 15px;
+            text-align: center;
+        }
+
+        .contact-info a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+            color: #007bff;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding-top: 20px;
+            gap: 15px;
+        }
+
+        .footer-bottom p {
+            font-size: 14px;
+        }
+
+        .policy-links a {
+            color: black;
+            text-decoration: none;
+            margin-left: 10px;
+            font-size: 14px;
+        }
+
+        .policy-links a:first-child {
+            margin-left: 0;
+        }
+
+        .policy-links a:hover {
+            text-decoration: underline;
+            color: #007bff;
+        }
+
+        /* Help Section */
+        .help-contaner {
+            width: 50px;
+            height: 50px;
+            position: fixed;
+            right: 20px;
+            bottom: 40px;
+            background-color: #FF464F;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+        
+        .help-contaner a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            color: white;
+            text-decoration: none;
+        }
+
+        /* ---------- Media Queries ---------- */
+        /* Medium devices (tablets) */
+        @media (max-width: 992px) {
+            .navbar-container {
+                padding: 10px;
+            }
+
+            .navbar a,
+            .dropdown button {
+                font-size: 0.9rem;
+                padding: 8px 10px;
+            }
+
+            .news-page-header h1 {
+                font-size: 2rem;
+            }
+
+            .news-page-header p {
+                font-size: 1rem;
+            }
+
+            .featured-article {
+                flex-direction: column;
+            }
+
+            .featured-article-image {
+                max-width: 100%;
+            }
+
+            .news-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Small devices (mobile phones) */
+        @media (max-width: 768px) {
+            #topBar {
+                flex-direction: column;
+                padding: 10px;
+            }
+
+            .em-contact-point {
+                width: 100%;
+                margin: 5px 0;
+                justify-content: center;
+            }
+
+            .search-by-zip {
+                width: 100%;
+            }
+
+            .navbar-container {
+                flex-wrap: wrap;
+            }
+
+            .logo-container {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 10px;
+            }
+
+            .navbar {
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+                overflow: hidden;
+                max-height: 0;
+                transition: max-height 0.3s ease-out;
+            }
+
+            .navbar.responsive {
+                max-height: 500px;
+            }
+
+            .navbar a,
+            .dropdown {
+                width: 100%;
+                text-align: center;
+                margin: 2px 0;
+            }
+
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+                width: 100%;
+                text-align: center;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+            }
+
+            .dropdown.active .dropdown-content {
+                max-height: 200px;
+            }
+
+            .menu-icon {
+                display: block;
+                width: 100%;
+                text-align: center;
+                margin-bottom: 10px;
+            }
+
+            .news-page-header {
+                padding: 40px 15px;
+            }
+
+            .news-page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .featured-article-content {
+                padding: 20px;
+            }
+
+            .article-title {
+                font-size: 1.4rem;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .footer-top {
+                flex-direction: column;
+            }
+
+            .social-media,
+            .contact-info {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .policy-links {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .policy-links a {
+                margin: 0 5px;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 480px) {
+            .logo-img {
+                width: 150px;
+            }
+
+            .news-page-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .news-page-header p {
+                font-size: 0.9rem;
+            }
+
+            .section-title {
+                font-size: 1.3rem;
+            }
+
+            .article-title {
+                font-size: 1.2rem;
+            }
+
+            .article-excerpt {
+                font-size: 0.9rem;
+            }
+
+            .pagination a {
+                padding: 6px 12px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Media Query for 600px Width */
+@media (max-width: 600px) {
+    /* Navigation Bar Adjustments */
+    .navbar-container {
+        width: 100%;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .logo-container {
+        width: auto;
+        margin-right: 10px;
+    }
+    
+    .logo-img {
+        width: 120px;
+        max-height: 40px;
+    }
+    
+    /* Hide hamburger icon */
+    .menu-icon {
+        display: none;
+    }
+    
+    .navbar {
+        display: flex;
+        flex-direction: row;
+        /* flex-wrap: wrap; */
+        width: 100%;
+        max-height: none;
+    }
+    
+    .navbar a,
+    .dropdown button {
+        padding: 8px;
+        font-size: 0.9rem;
+        margin: 0 2px;
+    }
+    
+    .dropdown-content {
+        position: absolute;
+        min-width: 140px;
+    }
+}
+
+    .article-title {
+        font-size: 1.3rem;
+    }
+
+    
+    .news-container {
+        padding: 0 10px;
+    }
+
+    .section-title {
+        font-size: 1.4rem;
+        text-align: center;
+    }
+
+    
+    .help-contaner {
+        width: 40px;
+        height: 40px;
+        right: 10px;
+        bottom: 20px;
+    }
+
+    </style>
+</head>
+
+<body>
+    <!-- Top Bar -->
+    <header id="topBar">
+        <div class="em-contact-point">
+            <a href="tel:9774671602" class="cellphone"><i class="fa fa-phone"></i>+91 9774671602</a>
+            <span id="serv-open">24/7/365 Support Service Open</span>
+        </div>
+        <div class="em-contact-point search-by-zip">
+            <form action="#" method="post" class="search">
+                <input type="search" name="search-location" id="search-location" placeholder="Search by location...">
+                <a href="#"><i class="fa fa-search"></i></a>
+            </form>
+        </div>
+    </header>
+
+    <!-- Navbar -->
+    <nav class="navbar-container">
+        <div class="logo-container">
+            <img src="./images/logo-dfc.webp" alt="logo" class="logo-img">
+        </div>
+        <span class="menu-icon"><i class="fa fa-bars"></i></span>
+        <div class="navbar">
+            <a href="app.html">Home</a>
+            <a href="news.html">News</a>
+
+            <!-- First Dropdown -->
+            <div class="dropdown">
+                <button class="dropbtn">Forensic <i class="fa fa-caret-down"></i></button>
+                <div class="dropdown-content">
+                    <a href="./databreach.html">Data Breach Response</a>
+                    <a href="#">Spyware Detection</a>
+                    <a href="#">Ransomeware Attack</a>
+                </div>
+            </div>
+
+            <!-- Second Dropdown -->
+            <div class="dropdown">
+                <button class="dropbtn">Cyber <i class="fa fa-caret-down"></i></button>
+                <div class="dropdown-content">
+                    <a href="passwordChecker.html">Password Leak Checker</a>
+                    <a href="checkUrl.html">Malicious URL Scanner</a>
+                    <a href="#">Ransomeware Attack</a>
+                </div>
+            </div>
+
+            <!-- Third Dropdown -->
+            <div class="dropdown">
+                <button class="dropbtn">Resources <i class="fa fa-caret-down"></i></button>
+                <div class="dropdown-content">
+                    <a href="#">Resource 1</a>
+                    <a href="#">Resource 2</a>
+                    <a href="#">Resource 3</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- News Page Header -->
+    <section class="news-page-header">
+        <h1>Latest Digital Forensics News & Insights</h1>
+        <p>Stay informed with the latest trends, techniques, and case studies in digital forensics and cybersecurity.</p>
+    </section>
+
+    <!-- News Content -->
+    <div class="news-container">
+        <!-- Featured News -->
+        <section class="featured-news">
+            <h2 class="section-title">Featured News</h2>
+            <article class="featured-article">
+                <div class="featured-article-image">
+                    <picture>
+                        <source srcset="./imagecompressor/philipp-katzenberger-iIJrUoeRoCQ-unsplash-min.jpg" media="(max-width: 600px)">
+                        <source srcset="./imagecompressor/claudio-schwarz-fyeOxvYvIyY-unsplash-min.jpg" media="(max-width: 1200px)">
+                        <img src="./imagecompressor/adi-goldstein-EUsVwEOsblE-unsplash-min.jpg" alt="Featured article image" loading="lazy">
+                    </picture>
+                    
+                </div>
+                <div class="featured-article-content">
+                    <span class="article-category">Cybersecurity</span>
+                    <time class="article-date">March 5, 2025</time>
+                    <h3 class="article-title">New AI-Based Digital Forensics Tools Revolutionizing Investigations</h3>
+                    <p class="article-excerpt">Advanced machine learning algorithms are dramatically improving the speed and accuracy of digital evidence analysis. Learn how these new tools are changing the landscape of digital forensics and helping investigators tackle increasingly complex cyber threats.</p>
+                    <a href="#" class="read-more-btn">Read Full Article</a>
+                </div>
+            </article>
+        </section>
+
+        <!-- Latest News -->
+        <section class="latest-news">
+            <h2 class="section-title">Latest News</h2>
+            <div class="news-grid">
+                <!-- News Card 1 -->
+                <article class="news-card">
+                    <div class="news-card-image">
+                        <img src="./imagecompressor/claudio-schwarz-fyeOxvYvIyY-unsplash-min.jpg" alt="News image">
+                    </div>
+                    <div class="news-card-content">
+                        <span class="article-category">Data Breach</span>
+                        <time class="article-date">March 2, 2025</time>
+                        <h3 class="article-title">Major Financial Institution Faces Aftermath of Sophisticated Data Breach</h3>
+                        <p class="article-excerpt">A leading financial services provider is dealing with the consequences of a targeted attack that compromised sensitive customer data.</p>
+                        <a href="#" class="read-more-btn">Read More</a>
+                    </div>
+                </article>
+
+                <!-- News Card 2 -->
+                <article class="news-card">
+                    <div class="news-card-image">
+                        <img src="./imagecompressor/jason-leung-SAYzxuS1O3M-unsplash-min.jpg" alt="News image">
+                    </div>
+                    <div class="news-card-content">
+                        <span class="article-category">Forensic Accounting</span>
+                        <time class="article-date">February 28, 2025</time>
+                        <h3 class="article-title">Digital Traces Lead to Conviction in High-Profile Embezzlement Case</h3>
+                        <p class="article-excerpt">Forensic accountants and digital investigators collaborated to uncover a complex money laundering scheme through meticulous data analysis.</p>
+                        <a href="#" class="read-more-btn">Read More</a>
+                    </div>
+                </article>
+
+                <!-- News Card 3 -->
+                <article class="news-card">
+                    <div class="news-card-image">
+                        <img src="./imagecompressor/law-justice-court-judge-preview-min.jpg" alt="News image">
+                    </div>
+                    <div class="news-card-content">
+                        <span class="article-category">Legal Technology</span>
+                        <time class="article-date">February 25, 2025</time>
+                        <h3 class="article-title">Supreme Court Rules on Admissibility of Cloud-Based Digital Evidence</h3>
+                        <p class="article-excerpt">A landmark ruling establishes new precedents for how digital evidence stored in cloud environments can be used in court proceedings.</p>
+                        <a href="#" class="read-more-btn">Read More</a>
+                    </div>
+                </article>
+
+                <!-- News Card 4 -->
+                <article class="news-card">
+                    <div class="news-card-image">
+                        <img src="./imagecompressor/christian-wiediger-GWkioAj5aB4-unsplash-min.jpg" alt="News image">
+                    </div>
+                    <div class="news-card-content">
+                        <span class="article-category">Mobile Forensics</span>
+                        <time class="article-date">February 22, 2025</time>
+                        <h3 class="article-title">New Challenges in Extracting Evidence from Encrypted Messaging Apps</h3>
+                        <p class="article-excerpt">Investigators face growing hurdles as messaging platforms implement enhanced encryption and anti-forensic features.</p>
+                        <a href="#" class="read-more-btn">Read More</a>
+                    </div>
+                </article>
+
+                <!-- News Card 5 -->
+                <article class="news-card">
+                    <div class="news-card-image">
+                        <img src="./imagecompressor/vladislav-klapin-9mE5MQfXInE-unsplash-min.jpg" alt="News image">
+                    </div>
+                    <div class="news-card-content">
+                        <span class="article-category">Industry Event</span>
+                        <time class="article-date">February 20, 2025</time>
+                        <h3 class="article-title">Global Digital Forensics Summit Announces 2025 Conference Agenda</h3>
+                        <p class="article-excerpt">The premier industry event will feature leading experts discussing emerging techniques and technologies in digital investigations.</p>
+                        <a href="#" class="read-more-btn">Read More</a>
+                    </div>
+                </article>
+
+                <!-- News Card 6 -->
+                <article class="news-card">
+                    <div class="news-card-image">
+                        <img src="./imagecompressor/quantum-computing-min.jpg" alt="News image">
+                    </div>
+                    <div class="news-card-content">
+                        <span class="article-category">Research</span>
+                        <time class="article-date">February 18, 2025</time>
+                        <h3 class="article-title">Quantum Computing's Impact on Digital Forensics and Encryption</h3>
+                        <p class="article-excerpt">Researchers explore how quantum technologies will transform both cybersecurity defenses and forensic investigation capabilities.</p>
+                        <a href="#" class="read-more-btn">Read More</a>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <a href="#" class="active">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+                <a href="#">&raquo;</a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Help Container -->
+    <div class="help-contaner">
+        <a href="./emergencySupport.html"><span><i class="fa fa-question"></i></span></a>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer-section">
+        <div class="footer-container">
+
+            <!-- Row 1: Social Media & Contact Info -->
+            <section class="footer-top">
+                <article class="social-media">
+                    <h4>SOCIAL MEDIA</h4>
+                    <nav class="social-icons">
+                        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    </nav>
+                </article>
+
+                <article class="contact-info">
+                    <h4>CONTACT US</h4>
+                    <address>
+                        <p><i class="fa-solid fa-location-dot"></i> LPU, Jalandhar, Punjab-144401, India</p>
+                        <p><i class="fa-solid fa-phone"></i> <a href="tel:+919774671602">+91 9774671602</a></p>
+                        <p><i class="fa-solid fa-envelope"></i> <a
+                                href="mailto:info@digitalforensics.com">info@digitalforensics.com</a></p>
+                    </address>
+                </article>
+            </section>
+
+            <!-- Row 2: Copyright & Policy Links -->
+            <section class="footer-bottom">
+                <p>&copy; 2025 DIGITALFORENSICS.COM. ALL RIGHTS RESERVED.</p>
+                <nav class="policy-links">
+                    <a href="#">Terms & Conditions</a> |
+                    <a href="#">Privacy Policy</a> |
+                    <a href="#">FAQ</a> |
+                    <a href="#">Refund Policy</a> |
+                    <a href="#">Contact Us</a>
+                </nav>
+            </section>
+
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const menuIcon = document.querySelector(".menu-icon");
+            const navbar = document.querySelector(".navbar");
+            const dropdowns = document.querySelectorAll(".dropdown");
+
+            // Toggle mobile menu
+            menuIcon.addEventListener("click", function (event) {
+                event.stopPropagation(); // Prevent event from bubbling
+                navbar.classList.toggle("responsive");
+            });
+
+            // Toggle dropdowns on mobile
+            dropdowns.forEach(dropdown => {
+                const button = dropdown.querySelector(".dropbtn");
+
+                button.addEventListener("click", function (event) {
+                    // Ensure works on both mobile and desktop
+                    event.stopPropagation();
+
+                    // Toggle dropdown on mobile and desktop
+                    if (window.innerWidth <= 768) {
+                        dropdown.classList.toggle("active");
+
+                        // Close other dropdowns
+                        dropdowns.forEach(d => {
+                            if (d !== dropdown) d.classList.remove("active");
+                        });
+                    }
+                });
+            });
+
+            // Close dropdowns and mobile menu when clicking outside
+            document.addEventListener("click", function () {
+                navbar.classList.remove("responsive");
+                dropdowns.forEach(dropdown => dropdown.classList.remove("active"));
+            });
+
+            // Prevent navigation close on dropdown click
+            dropdowns.forEach(dropdown => {
+                dropdown.addEventListener("click", function (event) {
+                    event.stopPropagation();
+                });
+            });
+
+            // Reset responsive menu on window resize
+            window.addEventListener("resize", function () {
+                if (window.innerWidth > 768) {
+                    navbar.classList.remove("responsive");
+                    dropdowns.forEach(dropdown => dropdown.classList.remove("active"));
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
